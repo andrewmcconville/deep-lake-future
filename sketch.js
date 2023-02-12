@@ -1,4 +1,4 @@
-const cursors = Array(700);
+const cursors = Array(600);
 const windows = Array(160);
 const fillHSL = {
   h: 281,
