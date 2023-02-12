@@ -24,29 +24,30 @@ function setup() {
   for(let i = 0; i < windows.length; i++) {
     windows[i] = new UIWindow({
       position: createVector(roundToGrid(random(-100, width - 50)), roundToGrid(random(-100, height - 50))),
-      size: roundToGrid(random(200, 400)),
+      size: roundToDisplayGrid(random(180, 1200)),
       title: "xXWindow" + i + "Xx",
     });
   }
 
-  windows = shuffleArray(windows);
+  windows.sort((a, b) => (a.size < b.size) ? 1 : -1);
+  //windows = shuffleArray(windows);
 
   //make custom foreground windows
   windows[windows.length - 2] = new UIWindow({
     position: createVector(roundToGrid(width / 2), roundToGrid(40)),
-    size: roundToGrid(300),
+    size: roundToDisplayGrid(300),
     title: "Big Window",
   });
   
   windows[windows.length - 1] = new UIWindow({
     position: createVector(roundToGrid((width / 2) - 100), roundToGrid(230)),
-    size: roundToGrid(250),
+    size: roundToDisplayGrid(250),
     title: "Little Window",
   });
   
   windows[windows.length - 0] = new UIWindow({
     position: createVector(roundToGrid((width / 2) + 30), 320),
-    size: roundToGrid(200),
+    size: roundToDisplayGrid(200),
     title: "Tiny Window",
   });
   
@@ -71,11 +72,11 @@ function draw() {
   
   //draw windows that contain balls
   windows.forEach(window => {
-    window.drawWindow();
+    window.drawWindowBackground();
     window.contents.forEach(content => {
       balls[content].drawBall();
     });
-    window.drawWindowOverlay();
+    window.drawWindowForeground();
   });
 
   cursor.drawCursor();

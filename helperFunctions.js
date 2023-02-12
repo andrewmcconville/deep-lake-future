@@ -19,3 +19,7 @@ function shuffleArray(array) {
 function roundToGrid(number) {
   return round(number / gridUnits) * gridUnits;
 }
+
+function roundToDisplayGrid(number) {
+  return round(number / 32) * 32;
+}

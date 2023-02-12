@@ -66,15 +66,15 @@ class UIWindow {
         70,
       ];
       this.contents = [];
-      this.image = createGraphics(this.width, this.height);
-      this.image.colorMode(HSL, 360, 100, 100, 1);
-      this.image.noStroke();
-      this.image.noFill();
+      this.background = createGraphics(this.width, this.height);
+      this.background.colorMode(HSL, 360, 100, 100, 1);
+      this.background.noStroke();
+      this.background.noFill();
 
-      this.overlay = createGraphics(this.width, this.height);
-      this.overlay.colorMode(HSL, 360, 100, 100, 1);
-      this.overlay.noStroke();
-      this.overlay.noFill();
+      this.foreground = createGraphics(this.width, this.height);
+      this.foreground.colorMode(HSL, 360, 100, 100, 1);
+      this.foreground.noStroke();
+      this.foreground.noFill();
       
       this.makeShadow();
       this.makeFrameOuterBorder();
@@ -85,81 +85,81 @@ class UIWindow {
       this.makeToolBar();
       this.makeFooter();
       
-      // this.image.filter(BLUR, 3);
-      // this.overlay.filter(BLUR, 3);
+      // this.background.filter(BLUR, 3);
+      // this.foreground.filter(BLUR, 3);
     }
     
-    drawWindow() {
-      image(this.image, this.position.x, this.position.y);
+    drawWindowBackground() {
+      image(this.background, this.position.x, this.position.y);
     }
     
-    drawWindowOverlay() {
-      image(this.overlay, this.position.x, this.position.y);
+    drawWindowForeground() {
+      image(this.foreground, this.position.x, this.position.y);
     }
     
     makeShadow() {
-      this.image.fill(fillHSL.h, 30, 60, 0.1);
-      this.image.rect(this.shadowOffset, this.shadowOffset, this.width, this.height);
+      this.background.fill(fillHSL.h, 30, 60, 0.1);
+      this.background.rect(this.shadowOffset, this.shadowOffset, this.width, this.height);
     }
     
     makeFrameOuterBorder() {
-      this.image.fill(this.borderStrokeColor);
-      this.image.rect(this.frameOuterBorder.position.x, this.frameOuterBorder.position.y, this.frameOuterBorder.width, this.frameOuterBorder.height);
+      this.background.fill(this.borderStrokeColor);
+      this.background.rect(this.frameOuterBorder.position.x, this.frameOuterBorder.position.y, this.frameOuterBorder.width, this.frameOuterBorder.height);
     }
     
     makeFrame() {
-      this.image.fill(fillHSL.h, 30, 88);
-      this.image.rect(this.frame.position.x, this.frame.position.y, this.frame.width, this.frame.height);
-      this.image.push();
-      this.image.strokeCap(PROJECT);
-      this.image.stroke(this.borderStrokeColor);
-      this.image.strokeWeight(this.outlineWidth);
-      this.image.line(
+      this.background.fill(fillHSL.h, 30, 88);
+      this.background.rect(this.frame.position.x, this.frame.position.y, this.frame.width, this.frame.height);
+      this.background.push();
+      this.background.strokeCap(PROJECT);
+      this.background.stroke(this.borderStrokeColor);
+      this.background.strokeWeight(this.outlineWidth);
+      this.background.line(
         this.frame.margin / 2 + this.frame.position.x + this.resizeHandleOffset,
         this.frame.margin / 2 + this.frame.position.y,
         this.frame.margin / 2 + this.frame.position.x + this.resizeHandleOffset,
         this.frame.margin / 2 + this.frame.height
       );
-      this.image.line(
+      this.background.line(
         this.frame.margin / 2 + this.frame.width - this.resizeHandleOffset,
         this.frame.margin / 2 + this.frame.position.y,
         this.frame.margin / 2 + this.frame.width - this.resizeHandleOffset,
         this.frame.margin / 2 + this.frame.height
       );
-      this.image.line(
+      this.background.line(
         this.frame.margin / 2 + this.frame.position.x,
         this.frame.margin / 2 + this.frame.position.y + this.resizeHandleOffset, 
         this.frame.margin / 2 + this.frame.width,
         this.frame.margin / 2 + this.frame.position.y + this.resizeHandleOffset
       );
-      this.image.line(
+      this.background.line(
         this.frame.margin / 2 + this.frame.position.x,
         this.frame.margin / 2 + this.frame.position.y + this.frame.height - this.resizeHandleOffset - this.frame.margin,
         this.frame.margin / 2 + this.frame.width,
         this.frame.margin / 2 + this.frame.position.y + this.frame.height - this.resizeHandleOffset - this.frame.margin
       );
-      this.image.pop();
+      this.background.pop();
     }
     
     makeFrameInnerBorder() {
-      this.image.fill(this.borderStrokeColor);
-      this.image.rect(this.frameInner.position.x, this.frameInner.position.y, this.frameInner.width, this.frameInner.height);
+      this.background.fill(this.borderStrokeColor);
+      this.background.rect(this.frameInner.position.x, this.frameInner.position.y, this.frameInner.width, this.frameInner.height);
     }
     
     makeHeader() {
-      this.image.fill(fillHSL.h, 20, 99);
-      this.image.rect(this.header.position.x, this.header.position.y, this.header.width, this.header.height);
-      this.image.push();
-      this.image.strokeCap(PROJECT);
-      this.image.stroke(this.borderStrokeColor);
-      this.image.strokeWeight(this.outlineWidth)
-      this.image.line(
+      this.background.fill(fillHSL.h, 20, 99);
+      this.background.rect(this.header.position.x, this.header.position.y, this.header.width, this.header.height);
+      this.background.push();
+      this.background.strokeCap(PROJECT);
+      this.background.stroke(this.borderStrokeColor);
+      this.background.strokeWeight(this.outlineWidth)
+      this.background.line(
         this.header.position.x + (this.outlineWidth / 2),
         this.header.position.y + this.header.height - (this.outlineWidth / 2),
         this.header.position.x + this.header.width - (this.outlineWidth / 2),
         this.header.position.y + this.header.height - (this.outlineWidth / 2),
       );
-      this.image.pop();
+      this.background.pop();
       new TextLabel(
         {
           text: this.title,
@@ -177,26 +177,26 @@ class UIWindow {
           horizAlign: CENTER,
           vertAlign: CENTER,
         }
-      ).drawTextLabel(this.image);
+      ).drawTextLabel(this.background);
     }
     
     makeToolBar() {
-      this.overlay.fill(fillHSL.h, 40, 92, 0.7);
-      this.overlay.rect(this.toolBar.position.x, this.toolBar.position.y, this.toolBar.width, this.toolBar.height);
-      this.overlay.push();
-      this.overlay.strokeCap(PROJECT);
-      this.overlay.stroke(this.borderStrokeColor);
-      this.overlay.strokeWeight(this.outlineWidth)
-      this.overlay.line(
+      this.foreground.fill(fillHSL.h, 40, 92, 0.7);
+      this.foreground.rect(this.toolBar.position.x, this.toolBar.position.y, this.toolBar.width, this.toolBar.height);
+      this.foreground.push();
+      this.foreground.strokeCap(PROJECT);
+      this.foreground.stroke(this.borderStrokeColor);
+      this.foreground.strokeWeight(this.outlineWidth)
+      this.foreground.line(
         this.toolBar.position.x + (this.outlineWidth / 2),
         this.toolBar.position.y + this.toolBar.height - (this.outlineWidth / 2),
         this.toolBar.position.x + this.toolBar.width - (this.outlineWidth / 2),
         this.toolBar.position.y + this.toolBar.height - (this.outlineWidth / 2),
       );
-      this.overlay.pop();
+      this.foreground.pop();
       new TextLabel(
         {
-          text: "File   Edit",
+          text: "File   Edit   Window   Help",
           style: NORMAL,
           size: 11,
           fill: {
@@ -211,28 +211,28 @@ class UIWindow {
           horizAlign: LEFT,
           vertAlign: CENTER,
         }
-      ).drawTextLabel(this.overlay);
+      ).drawTextLabel(this.foreground);
     }
     
     makeFooter() {
-      this.overlay.fill(fillHSL.h, 40, 92, 0.7);
-      this.overlay.rect(this.footer.position.x, this.footer.position.y, this.footer.width, this.footer.height);
-      this.overlay.push();
-      this.overlay.strokeCap(PROJECT);
-      this.overlay.stroke(this.borderStrokeColor);
-      this.overlay.strokeWeight(this.outlineWidth)
-      this.overlay.line(
+      this.background.fill(fillHSL.h, 40, 92, 0.7);
+      this.background.rect(this.footer.position.x, this.footer.position.y, this.footer.width, this.footer.height);
+      this.background.push();
+      this.background.strokeCap(PROJECT);
+      this.background.stroke(this.borderStrokeColor);
+      this.background.strokeWeight(this.outlineWidth)
+      this.background.line(
         this.footer.position.x + (this.outlineWidth / 2),
         this.footer.position.y + (this.outlineWidth / 2),
         this.footer.position.x + this.footer.width - (this.outlineWidth / 2),
         this.footer.position.y + (this.outlineWidth / 2),
       );
-      this.overlay.pop();
+      this.background.pop();
       new TextLabel(
         {
           text: `x:${this.position.x}, y:${this.position.y}`,
           style: NORMAL,
-          size: 11,
+          size: 10,
           fill: {
             h: fillHSL.h,
             s: fillHSL.s,
@@ -245,21 +245,39 @@ class UIWindow {
           horizAlign: RIGHT,
           vertAlign: CENTER,
         }
-      ).drawTextLabel(this.overlay);
+      ).drawTextLabel(this.background);
+      new TextLabel(
+        {
+          text: `w:${this.width}, h:${this.height}`,
+          style: NORMAL,
+          size: 10,
+          fill: {
+            h: fillHSL.h,
+            s: fillHSL.s,
+            l: fillHSL.l,
+          },
+          x: this.footer.position.x + 8,
+          y: this.footer.position.y + this.outlineWidth,
+          width: this.footer.width - 16,
+          height: this.footer.height,
+          horizAlign: LEFT,
+          vertAlign: CENTER,
+        }
+      ).drawTextLabel(this.background);
     }
     
     makeContent() {
       let from = color(fillHSL.h - 100, 30, 90, 1);
       let to = color(fillHSL.h - 100, 20, 95, 0);
 
-      this.image.fill(fillHSL.h, 20, 95);
-      this.image.rect(this.content.position.x, this.content.position.y, this.content.width, this.content.height);
+      this.background.fill(fillHSL.h, 20, 95);
+      this.background.rect(this.content.position.x, this.content.position.y, this.content.width, this.content.height);
 
       for(let i = this.headerHeight; i < 80; i++) {
         let inter = map(i, 0, 80, 0, 1);
         let color = lerpColor(from, to, inter);
-        this.image.fill(color)
-        this.image.rect(this.content.position.x, this.content.position.y + i, this.content.width, 1);
+        this.background.fill(color)
+        this.background.rect(this.content.position.x, this.content.position.y + i, this.content.width, 1);
       }
     }
     
