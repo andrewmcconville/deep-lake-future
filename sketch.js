@@ -16,7 +16,7 @@ function preload() {
 function setup() {
   noStroke();
   noFill();
-  pixelDensity(6);
+  //pixelDensity(6);
   createCanvas(windowWidth, windowHeight);
   colorMode(HSL, 360, 100, 100, 1);
 
