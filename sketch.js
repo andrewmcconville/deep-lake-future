@@ -1,5 +1,5 @@
 const cursors = Array(700);
-const windows = Array(100);
+const windows = Array(160);
 const fillHSL = {
   h: 281,
   s: 100,
@@ -58,7 +58,7 @@ function setup() {
 
   for(let i = 0; i < cursors.length; i++) {
     cursors[i] = new Cursor({
-      container: windows[round(random(windows.length / 2, windows.length - 1))],
+      container: windows[round(random(windows.length / 4, windows.length - 1))],
     });
     windows[windows.indexOf(cursors[i].container)].contents.push(i);
   }
@@ -67,11 +67,19 @@ function setup() {
 function draw() {
   background(fillHSL.h, 20, 95);
   
-  windows.forEach(window => {
-    window.drawWindowBackground();
-    window.contents.forEach(content => {
+  for(let i = windows.length / 4; i < windows.length; i++) {
+    windows[i].drawWindowBackground();
+    windows[i].contents.forEach(content => {
       cursors[content].drawCursor();
     });
-    window.drawWindowForeground();
-  });
+    windows[i].drawWindowForeground();
+  }
+
+  // windows.forEach(window => {
+  //   window.drawWindowBackground();
+  //   window.contents.forEach(content => {
+  //     cursors[content].drawCursor();
+  //   });
+  //   window.drawWindowForeground();
+  // });
 }
