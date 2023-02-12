@@ -7,10 +7,14 @@ let fillHSL = {
   l: 40,
 };
 let gridUnits = 4;
-let myFont;
+let IBMPlexMonoRegular;
+let IBMPlexMonoSemiBold;
+let IBMPlexMonoBold;
 
 function preload() {
-  //myFont = loadFont('https://fonts.gstatic.com/s/ibmplexmono/v15/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2');
+  IBMPlexMonoRegular = loadFont('fonts/IBMPlexMono-Regular.ttf');
+  IBMPlexMonoSemiBold = loadFont('fonts/IBMPlexMono-SemiBold.ttf');
+  IBMPlexMonoBold = loadFont('fonts/IBMPlexMono-Bold.ttf');
 }
 
 function setup() {

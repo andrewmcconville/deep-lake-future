@@ -109,7 +109,32 @@ class UIWindow {
     
     makeFrame() {
       this.background.fill(fillHSL.h, 30, 88);
-      this.background.rect(this.frame.position.x, this.frame.position.y, this.frame.width, this.frame.height);
+      this.background.rect(this.frame.position.x, this.frame.position.y, this.frame.width, this.frame.height);      
+      this.background.fill(fillHSL.h, 30, 82);
+      this.background.rect(
+        this.frame.position.x,
+        this.frame.position.y,
+        this.resizeHandleOffset,
+        this.resizeHandleOffset
+      );
+      this.background.rect(
+        this.frame.margin / 1 + this.frame.width - this.resizeHandleOffset,
+        this.frame.position.y,
+        this.resizeHandleOffset,
+        this.resizeHandleOffset
+      );
+      this.background.rect(
+        this.frame.position.x,
+        this.frame.margin / 1 + this.frame.height - this.resizeHandleOffset,
+        this.resizeHandleOffset,
+        this.resizeHandleOffset
+      );
+      this.background.rect(
+        this.frame.margin / 1 + this.frame.width - this.resizeHandleOffset,
+        this.frame.margin / 1 + this.frame.height - this.resizeHandleOffset,
+        this.resizeHandleOffset,
+        this.resizeHandleOffset
+      );
       this.background.push();
       this.background.strokeCap(PROJECT);
       this.background.stroke(this.borderStrokeColor);
@@ -163,7 +188,7 @@ class UIWindow {
       new TextLabel(
         {
           text: this.title,
-          style: BOLD,
+          font: IBMPlexMonoSemiBold,
           size: 11,
           fill: {
             h: fillHSL.h,
@@ -196,9 +221,8 @@ class UIWindow {
       this.foreground.pop();
       new TextLabel(
         {
-          text: "File   Edit   Window   Help",
-          style: NORMAL,
-          size: 11,
+          text: "File  Edit  Window  Help",
+          size: 10,
           fill: {
             h: fillHSL.h,
             s: fillHSL.s,
@@ -231,7 +255,6 @@ class UIWindow {
       new TextLabel(
         {
           text: `x:${this.position.x}, y:${this.position.y}`,
-          style: NORMAL,
           size: 10,
           fill: {
             h: fillHSL.h,
@@ -239,7 +262,7 @@ class UIWindow {
             l: fillHSL.l,
           },
           x: this.footer.position.x + 8,
-          y: this.footer.position.y + this.outlineWidth,
+          y: this.footer.position.y,
           width: this.footer.width - 16,
           height: this.footer.height,
           horizAlign: RIGHT,
@@ -249,7 +272,6 @@ class UIWindow {
       new TextLabel(
         {
           text: `w:${this.width}, h:${this.height}`,
-          style: NORMAL,
           size: 10,
           fill: {
             h: fillHSL.h,
@@ -257,7 +279,7 @@ class UIWindow {
             l: fillHSL.l,
           },
           x: this.footer.position.x + 8,
-          y: this.footer.position.y + this.outlineWidth,
+          y: this.footer.position.y,
           width: this.footer.width - 16,
           height: this.footer.height,
           horizAlign: LEFT,
