@@ -1,12 +1,12 @@
-let cursor;
-let balls = Array(1000);
-let windows = Array(100);
-let fillHSL = {
+const cursors = Array(1000);
+const windows = Array(50);
+const fillHSL = {
   h: 281,
   s: 100,
   l: 40,
 };
-let gridUnits = 4;
+const windowPadding = -32;
+const gridUnits = 4;
 let IBMPlexMonoRegular;
 let IBMPlexMonoSemiBold;
 let IBMPlexMonoBold;
@@ -20,68 +20,58 @@ function preload() {
 function setup() {
   noStroke();
   noFill();
-  //pixelDensity(6);
+  //pixelDensity(2);
   createCanvas(windowWidth, windowHeight);
   colorMode(HSL, 360, 100, 100, 1);
 
   //make background windows
   for(let i = 0; i < windows.length; i++) {
+    let diagonal = roundToDisplayGrid(random(180, 1030));
+
     windows[i] = new UIWindow({
-      position: createVector(roundToGrid(random(-100, width - 50)), roundToGrid(random(-100, height - 50))),
-      size: roundToDisplayGrid(random(180, 1200)),
+      position: createVector(roundToGrid(random(windowPadding, windowWidth - diagonal - windowPadding)), roundToGrid(random(windowPadding, windowHeight - (diagonal * 3 / 4) - windowPadding))),
+      diagonal: diagonal,
       title: "xXWindow" + i + "Xx",
     });
   }
 
-  windows.sort((a, b) => (a.size < b.size) ? 1 : -1);
-  //windows = shuffleArray(windows);
+  windows.sort((a, b) => (a.diagonal < b.diagonal) ? 1 : -1);
 
   //make custom foreground windows
-  windows[windows.length - 2] = new UIWindow({
-    position: createVector(roundToGrid(width / 2), roundToGrid(40)),
-    size: roundToDisplayGrid(300),
-    title: "Big Window",
-  });
+  // windows[windows.length - 2] = new UIWindow({
+  //   position: createVector(roundToGrid(width / 2), roundToGrid(40)),
+  //   diagonal: roundToDisplayGrid(300),
+  //   title: "Big Window",
+  // });
   
-  windows[windows.length - 1] = new UIWindow({
-    position: createVector(roundToGrid((width / 2) - 100), roundToGrid(230)),
-    size: roundToDisplayGrid(250),
-    title: "Little Window",
-  });
+  // windows[windows.length - 1] = new UIWindow({
+  //   position: createVector(roundToGrid((width / 2) - 100), roundToGrid(230)),
+  //   diagonal: roundToDisplayGrid(250),
+  //   title: "Little Window",
+  // });
   
-  windows[windows.length - 0] = new UIWindow({
-    position: createVector(roundToGrid((width / 2) + 30), 320),
-    size: roundToDisplayGrid(200),
-    title: "Tiny Window",
-  });
-  
-  //make a bunch of other balls for each window
-  for(let i = 0; i < balls.length; i++) {
-    balls[i] = new Ball({
-      position: createVector(0, 0),
-      velocity: p5.Vector.random2D().mult(random(0, 4)),
-      diameter: random(1, 20),
-      strokeWeight: 0,
-      //container: random() < 0.6 ? windows[windows.length - 3] : random() < 0.8 ? windows[windows.length - 2] : windows[windows.length -1],
+  // windows[windows.length - 0] = new UIWindow({
+  //   position: createVector(roundToGrid((width / 2) + 30), 320),
+  //   diagonal: roundToDisplayGrid(200),
+  //   title: "Tiny Window",
+  // });
+
+  for(let i = 0; i < cursors.length; i++) {
+    cursors[i] = new Cursor({
       container: windows[round(random(0, windows.length - 1))],
     });
-    windows[windows.indexOf(balls[i].container)].contents.push(i);
+    windows[windows.indexOf(cursors[i].container)].contents.push(i);
   }
-
-  cursor = new Cursor();
 }
 
 function draw() {
   background(fillHSL.h, 20, 95);
   
-  //draw windows that contain balls
   windows.forEach(window => {
     window.drawWindowBackground();
     window.contents.forEach(content => {
-      balls[content].drawBall();
+      cursors[content].drawCursor();
     });
     window.drawWindowForeground();
   });
-
-  cursor.drawCursor();
 }

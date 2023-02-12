@@ -1,9 +1,9 @@
 class UIWindow {
     constructor(config) {
       this.position = config.position;
-      this.size = config.size;
-      this.width = this.size;
-      this.height = this.size * 3 / 4;
+      this.diagonal = config.diagonal;
+      this.width = this.diagonal;
+      this.height = this.diagonal * 3 / 4;
       this.title = config.title;
       this.outlineWidth = 1;
       this.resizeHandleOffset = 24 + (this.outlineWidth * 2);
@@ -172,19 +172,19 @@ class UIWindow {
     }
     
     makeHeader() {
-      this.background.fill(fillHSL.h, 20, 99);
-      this.background.rect(this.header.position.x, this.header.position.y, this.header.width, this.header.height);
-      this.background.push();
-      this.background.strokeCap(PROJECT);
-      this.background.stroke(this.borderStrokeColor);
-      this.background.strokeWeight(this.outlineWidth)
-      this.background.line(
+      this.foreground.fill(fillHSL.h, 20, 99);
+      this.foreground.rect(this.header.position.x, this.header.position.y, this.header.width, this.header.height);
+      this.foreground.push();
+      this.foreground.strokeCap(PROJECT);
+      this.foreground.stroke(this.borderStrokeColor);
+      this.foreground.strokeWeight(this.outlineWidth)
+      this.foreground.line(
         this.header.position.x + (this.outlineWidth / 2),
         this.header.position.y + this.header.height - (this.outlineWidth / 2),
         this.header.position.x + this.header.width - (this.outlineWidth / 2),
         this.header.position.y + this.header.height - (this.outlineWidth / 2),
       );
-      this.background.pop();
+      this.foreground.pop();
       new TextLabel(
         {
           text: this.title,
@@ -202,11 +202,11 @@ class UIWindow {
           horizAlign: CENTER,
           vertAlign: CENTER,
         }
-      ).drawTextLabel(this.background);
+      ).drawTextLabel(this.foreground);
     }
     
     makeToolBar() {
-      this.foreground.fill(fillHSL.h, 40, 92, 0.7);
+      this.foreground.fill(fillHSL.h, 40, 92, 0.75);
       this.foreground.rect(this.toolBar.position.x, this.toolBar.position.y, this.toolBar.width, this.toolBar.height);
       this.foreground.push();
       this.foreground.strokeCap(PROJECT);
@@ -239,19 +239,19 @@ class UIWindow {
     }
     
     makeFooter() {
-      this.background.fill(fillHSL.h, 40, 92, 0.7);
-      this.background.rect(this.footer.position.x, this.footer.position.y, this.footer.width, this.footer.height);
-      this.background.push();
-      this.background.strokeCap(PROJECT);
-      this.background.stroke(this.borderStrokeColor);
-      this.background.strokeWeight(this.outlineWidth)
-      this.background.line(
+      this.foreground.fill(fillHSL.h, 40, 92, 0.75);
+      this.foreground.rect(this.footer.position.x, this.footer.position.y, this.footer.width, this.footer.height);
+      this.foreground.push();
+      this.foreground.strokeCap(PROJECT);
+      this.foreground.stroke(this.borderStrokeColor);
+      this.foreground.strokeWeight(this.outlineWidth)
+      this.foreground.line(
         this.footer.position.x + (this.outlineWidth / 2),
         this.footer.position.y + (this.outlineWidth / 2),
         this.footer.position.x + this.footer.width - (this.outlineWidth / 2),
         this.footer.position.y + (this.outlineWidth / 2),
       );
-      this.background.pop();
+      this.foreground.pop();
       new TextLabel(
         {
           text: `x:${this.position.x}, y:${this.position.y}`,
@@ -268,7 +268,7 @@ class UIWindow {
           horizAlign: RIGHT,
           vertAlign: CENTER,
         }
-      ).drawTextLabel(this.background);
+      ).drawTextLabel(this.foreground);
       new TextLabel(
         {
           text: `w:${this.width}, h:${this.height}`,
@@ -285,7 +285,7 @@ class UIWindow {
           horizAlign: LEFT,
           vertAlign: CENTER,
         }
-      ).drawTextLabel(this.background);
+      ).drawTextLabel(this.foreground);
     }
     
     makeContent() {
@@ -298,17 +298,17 @@ class UIWindow {
       for(let i = this.headerHeight; i < 80; i++) {
         let inter = map(i, 0, 80, 0, 1);
         let color = lerpColor(from, to, inter);
-        this.background.fill(color)
+        this.background.fill(color);
         this.background.rect(this.content.position.x, this.content.position.y + i, this.content.width, 1);
       }
     }
     
     getContainerBounds() {
       return {      
-        left: this.position.x + this.content.position.x,      
-        right: this.position.x + this.content.position.x + this.content.width,
-        top: this.position.y + this.content.position.y,
-        bottom: this.position.y + this.content.position.y + this.content.height,
+          left: this.position.x - this.contentMargin + this.content.position.x,
+         right: this.position.x - this.contentMargin + this.content.position.x + this.content.width,
+           top: this.position.y - this.contentMargin,
+        bottom: this.position.y - this.contentMargin + this.content.position.y + this.content.height,
       }
     }
   }
