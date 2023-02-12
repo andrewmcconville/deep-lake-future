@@ -1,5 +1,5 @@
-const cursors = Array(800);
-const windows = Array(40);
+const cursors = Array(700);
+const windows = Array(100);
 const fillHSL = {
   h: 281,
   s: 100,
@@ -58,7 +58,7 @@ function setup() {
 
   for(let i = 0; i < cursors.length; i++) {
     cursors[i] = new Cursor({
-      container: windows[round(random(0, windows.length - 1))],
+      container: windows[round(random(windows.length / 2, windows.length - 1))],
     });
     windows[windows.indexOf(cursors[i].container)].contents.push(i);
   }
