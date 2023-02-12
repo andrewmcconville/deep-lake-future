@@ -1,5 +1,5 @@
-const cursors = Array(1000);
-const windows = Array(50);
+const cursors = Array(800);
+const windows = Array(40);
 const fillHSL = {
   h: 281,
   s: 100,
@@ -26,7 +26,7 @@ function setup() {
 
   //make background windows
   for(let i = 0; i < windows.length; i++) {
-    let diagonal = roundToDisplayGrid(random(180, 1030));
+    let diagonal = roundToDisplayGrid(random(180, windowWidth / 2));
 
     windows[i] = new UIWindow({
       position: createVector(roundToGrid(random(windowPadding, windowWidth - diagonal - windowPadding)), roundToGrid(random(windowPadding, windowHeight - (diagonal * 3 / 4) - windowPadding))),
