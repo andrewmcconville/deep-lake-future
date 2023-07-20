@@ -1,4 +1,4 @@
-const cursors = Array(100);
+const cursors = Array(50);
 const windows = Array(10);
 const videos = Array(10);
 const fillHSL = {
