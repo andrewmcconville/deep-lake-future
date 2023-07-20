@@ -5,6 +5,7 @@ class UIWindow {
       this.width = this.diagonal;
       this.height = this.diagonal * 3 / 4;
       this.title = config.title;
+      this.video = config.video;
       this.outlineWidth = 1;
       this.resizeHandleOffset = 24 + (this.outlineWidth * 2);
       this.shadowOffset = 4;
@@ -80,7 +81,7 @@ class UIWindow {
       this.makeFrameOuterBorder();
       this.makeFrame();
       this.makeFrameInnerBorder();
-      this.makeContent();
+      //this.makeContent();
       this.makeHeader();
       this.makeToolBar();
       this.makeFooter();
@@ -91,6 +92,7 @@ class UIWindow {
     
     drawWindowBackground() {
       image(this.background, this.position.x, this.position.y);
+      image(this.video, this.position.x + 4, this.position.y + 51, this.width - 12, this.height - 82);
     }
     
     drawWindowForeground() {
