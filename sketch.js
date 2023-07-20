@@ -33,6 +33,7 @@ function preload() {
 
 function setup() {
   pixelDensity(1);
+  frameRate(24.98);
   noStroke();
   noFill();
   app = createCanvas(interfaceWidth, interfaceHeight);
