@@ -16,18 +16,22 @@
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-    canvas {
+    }    
+    #appContainer canvas {
       display: block;
+      transform: scale3d(1, 0.5, 1);
+      z-index: 0;
     }
     video {
       position: absolute;
       top: 0;
       left: 0;
+      transform: scale3d(1, 0.5, 1);
+      z-index: 1;
     }
     #appContainer {
-      width: 560px;
-      height: 420px;
+      width: 640px;
+      height: 360px;
       position: relative;
       overflow: hidden;
     }

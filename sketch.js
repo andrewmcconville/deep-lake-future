@@ -8,8 +8,8 @@ const fillHSL = {
 };
 const windowPadding = -32;
 const gridUnits = 4;
-const interfaceWidth = 560;
-const interfaceHeight = 420;
+const interfaceWidth = 640; //560 Apple 3 width
+const interfaceHeight = 360; //162 Apple 3 height
 let app;
 let IBMPlexMonoRegular;
 let IBMPlexMonoSemiBold;
@@ -24,7 +24,7 @@ function preload() {
   for(let i = 0; i < videos.length; i++) {
     videos[i] = createVideo(`videos/Clip${i+1}_10sec.mp4`);
     videos[i].volume(0);
-    videos[i].size(768, 432);
+    videos[i].size(interfaceWidth, interfaceHeight);
     videos[i].hide();
     videos[i].loop();
     videos[i].parent('appContainer');
@@ -104,44 +104,44 @@ function windowLayout() {
 }
 
 function keyPressed() {
-  //h
-  if(keyCode === 72) {
+  //a
+  if(keyCode === 65) {
     toggleVideos(0);
   }
-  //e
-  else if(keyCode === 69) {
+  //b
+  else if(keyCode === 66) {
     toggleVideos(1);
   }
-  //l
-  else if(keyCode === 76) {
+  //c
+  else if(keyCode === 67) {
     toggleVideos(2);
-  }
-  //o
-  else if(keyCode === 79) {
-    toggleVideos(3);
-  }
-  //,
-  else if(keyCode === 188) {
-    toggleVideos(4);
-  }
-  //space
-  else if(keyCode === 32) {
-    toggleVideos(5);
-  }
-  //w
-  else if(keyCode === 87) {
-    toggleVideos(6);
-  }
-  //r
-  else if(keyCode === 82) {
-    toggleVideos(7);
   }
   //d
   else if(keyCode === 68) {
+    toggleVideos(3);
+  }
+  //e
+  else if(keyCode === 69) {
+    toggleVideos(4);
+  }
+  //f
+  else if(keyCode === 70) {
+    toggleVideos(5);
+  }
+  //g
+  else if(keyCode === 71) {
+    toggleVideos(6);
+  }
+  //h
+  else if(keyCode === 72) {
+    toggleVideos(7);
+  }
+  //i
+  else if(keyCode === 73) {
     toggleVideos(8);
   }
-  //.
-  else if(keyCode === 190) {
+  //j
+  else if(keyCode === 74) {
     toggleVideos(9);
   }
   else if(keyCode === keyCode) {
