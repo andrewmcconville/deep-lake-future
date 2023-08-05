@@ -151,6 +151,8 @@ function toggleVideos(videoIndex) {
   });
 
   if(currentIndex != previousIndex) {
+    videos[videoIndex].time(0);
+    videos[videoIndex].loop();
     videos[videoIndex].show();
     previousIndex = currentIndex;
     videoRefreshToggle = setTimeout(videoRefresh, refreshInterval);
