@@ -7,6 +7,7 @@
   <title>Window Dreams</title>
   <style>
     html {
+      background-color: #000;
       height: 100%;
     }
     body {
@@ -19,14 +20,14 @@
     }    
     #appContainer canvas {
       display: block;
-      transform: scale3d(1, 0.5, 1);
+      transform: scale3d(1, 0.65, 1);
       z-index: 0;
     }
     video {
       position: absolute;
       top: 0;
       left: 0;
-      transform: scale3d(1, 0.5, 1);
+      transform: scale3d(1, 0.65, 1);
       z-index: 1;
     }
     #appContainer {
@@ -34,6 +35,7 @@
       height: 360px;
       position: relative;
       overflow: hidden;
+      margin: -74px -35px 0 0;
     }
   </style>
   <script src="p5.js"></script>

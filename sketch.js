@@ -14,7 +14,8 @@ let app;
 let IBMPlexMonoRegular;
 let IBMPlexMonoSemiBold;
 let IBMPlexMonoBold;
-let windowLayoutInterval = 10000;
+let refreshInterval = 10000;
+let videoIsOpen = false;
 
 function preload() {
   IBMPlexMonoRegular = loadFont('fonts/IBMPlexMono-Regular.ttf');
@@ -40,15 +41,10 @@ function setup() {
   app.parent('appContainer');
   colorMode(HSL, 360, 100, 100, 1);
   windowLayout();
-  setTimeout(windowLayout, windowLayoutInterval);
-}
-
-function refresh(){
-  setup();
 }
 
 function draw() {
-  background(fillHSL.h, 20, 95);
+  background(0, 0, 0);
   
   for(let i = 0; i < windows.length; i++) {
     windows[i].drawWindowBackground();
@@ -56,6 +52,15 @@ function draw() {
       cursors[content].drawCursor();
     });
     windows[i].drawWindowForeground();
+  }
+}
+
+function pageRefresh() {
+  if(videoIsOpen) {
+    //do nothing
+  }
+  else {
+    location.reload();
   }
 }
 
@@ -74,25 +79,6 @@ function windowLayout() {
 
   windows.sort((a, b) => (a.diagonal < b.diagonal) ? 1 : -1);
 
-  //make custom foreground windows
-  // windows[windows.length - 2] = new UIWindow({
-  //   position: createVector(roundToGrid(width / 2), roundToGrid(40)),
-  //   diagonal: roundToDisplayGrid(300),
-  //   title: "Big Window",
-  // });
-  
-  // windows[windows.length - 1] = new UIWindow({
-  //   position: createVector(roundToGrid((width / 2) - 100), roundToGrid(230)),
-  //   diagonal: roundToDisplayGrid(250),
-  //   title: "Little Window",
-  // });
-  
-  // windows[windows.length - 0] = new UIWindow({
-  //   position: createVector(roundToGrid((width / 2) + 30), 320),
-  //   diagonal: roundToDisplayGrid(200),
-  //   title: "Tiny Window",
-  // });
-
   for(let i = 0; i < cursors.length; i++) {
     cursors[i] = new Cursor({
       container: windows[round(random(0, windows.length - 1))],
@@ -100,7 +86,7 @@ function windowLayout() {
     windows[windows.indexOf(cursors[i].container)].contents.push(i);
   }
 
-  setTimeout(windowLayout, windowLayoutInterval);
+  setInterval(pageRefresh, refreshInterval);
 }
 
 function keyPressed() {
@@ -149,9 +135,16 @@ function keyPressed() {
   }
 }
 
+function videoRefresh() {
+  location.reload();
+}
+
 let previousIndex = -1;
+let videoRefreshToggle;
 function toggleVideos(videoIndex) {
+  clearTimeout(videoRefreshToggle);
   let currentIndex = videoIndex;
+  videoIsOpen = true;
 
   videos.forEach(video => {
     video.hide();
@@ -160,7 +153,9 @@ function toggleVideos(videoIndex) {
   if(currentIndex != previousIndex) {
     videos[videoIndex].show();
     previousIndex = currentIndex;
+    videoRefreshToggle = setTimeout(videoRefresh, refreshInterval);
   } else {
     previousIndex = -1;
+    location.reload();
   }
 }
